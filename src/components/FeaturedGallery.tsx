@@ -17,23 +17,23 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
   onToggleWishlist,
   wishlistIds = []
 }) => {
-  // We use 3 specific unique gallery pieces: Aura Lounge Chair, Monolith Travertine Table, Solstice Armchair
-  const auraChair = products.find(p => p.id === 'prod-lounge-aura') || products[0];
-  const travertineTable = products.find(p => p.id === 'prod-table-travertine') || products[1];
-  const solsticeChair = products.find(p => p.id === 'prod-armchair-solstice') || products[2];
+  // 3 distinct signature pieces that do NOT repeat the hero chair:
+  // 1. Wave Modular Sofa (prod-sofa-ondulation)
+  // 2. Kanso Honey Sculptural Dining Chair (prod-chair-kanso)
+  // 3. Venezia Fluted Credenza (prod-credenza-venezia)
+  const signatureSofa = products.find(p => p.id === 'prod-sofa-ondulation') || products[1];
+  const featuredChair = products.find(p => p.id === 'prod-chair-kanso') || products.find(p => p.category === 'Dining Chairs') || products[4];
+  const flutedCredenza = products.find(p => p.id === 'prod-credenza-venezia') || products[12] || products[3];
 
   return (
     <section
       id="featured-gallery-section"
       className="py-24 px-4 sm:px-6 lg:px-10 transition-colors duration-700 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #EDE6F5 0%, #F0EEF8 35%, #EEF4FA 100%)'
+        background: 'linear-gradient(180deg, #FAF8F4 0%, #F4F1E9 50%, #ECE7DD 100%)'
       }}
     >
       {/* Soft atmospheric ambient glow */}
-      <div className="absolute top-1/4 right-0 w-[550px] h-[550px] rounded-full bg-[#E2EDF7] blur-[120px] opacity-70 pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] rounded-full bg-[#E6DEF2] blur-[100px] opacity-60 pointer-events-none -z-10" />
-
       <div className="max-w-7xl mx-auto">
         
         {/* Section Editorial Header */}
@@ -50,24 +50,24 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
             </h2>
           </div>
           <p className="font-editorial text-base sm:text-lg text-[#556075] max-w-md">
-            Individual furniture artifacts presented in isolation to honor the tension between spatial lightness and tactile permanence.
+            Individual architectural artifacts presented in pure 3D space to celebrate tactile permanence and organic contours.
           </p>
         </div>
 
         {/* Asymmetric Editorial Composition */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           
-          {/* Piece 1: Large Span (7 Cols) — Aura Bouclé Lounge Chair on Powder Blue Stage */}
+          {/* Piece 1: Large Span (7 Cols) — Ondulation Modular Wave Sofa */}
           <div
-            id={`gallery-pod-${auraChair.id}`}
-            onClick={() => onOpenProduct(auraChair)}
-            className="lg:col-span-7 group relative rounded-[36px] bg-white/80 hover:bg-white/95 border border-black/5 hover:border-black/10 p-7 sm:p-10 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
+            id={`gallery-pod-${signatureSofa.id}`}
+            onClick={() => onOpenProduct(signatureSofa)}
+            className="lg:col-span-7 group relative rounded-[36px] bg-[#FAF8F5]/90 hover:bg-[#FDFCFA] border border-black/5 hover:border-black/10 p-7 sm:p-10 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
           >
             {/* Top Meta */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-[#DDE9F4] text-[#34597A] text-[10px] font-bold tracking-wider uppercase">
-                  Powder Blue Stage
+                <span className="px-3 py-1 rounded-full bg-black/5 text-[#182030] text-[10px] font-bold tracking-wider uppercase">
+                  Monumental Centerpiece
                 </span>
                 <span className="text-xs text-[#6A7382] font-mono">
                   No. 01
@@ -79,12 +79,12 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onToggleWishlist(auraChair);
+                      onToggleWishlist(signatureSofa);
                     }}
-                    className="w-9 h-9 rounded-full flex items-center justify-center glass-pill text-[#6A7382] hover:text-[#182030]"
+                    className="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#6A7382] hover:text-[#182030] shadow-xs"
                     aria-label="Wishlist"
                   >
-                    <Heart className={`w-4 h-4 ${wishlistIds.includes(auraChair.id) ? 'fill-[#C95332] text-[#C95332]' : ''}`} />
+                    <Heart className={`w-4 h-4 ${wishlistIds.includes(signatureSofa.id) ? 'fill-[#C95332] text-[#C95332]' : ''}`} />
                   </button>
                 )}
                 <div className="w-9 h-9 rounded-full flex items-center justify-center bg-[#182030] text-white group-hover:scale-105 transition-transform">
@@ -93,32 +93,30 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
               </div>
             </div>
 
-            {/* The Isolated 3D Stage (Powder Blue Pod so Cream Bouclé stands out!) */}
+            {/* The Isolated 3D Stage (Clean Transparent Alpha Canvas) */}
             <div
-              className="relative w-full h-80 sm:h-96 rounded-3xl bg-[#DDE9F4] flex items-center justify-center p-6 my-4 overflow-hidden"
-              style={{
-                boxShadow: 'inset 0 2px 3px rgba(255, 255, 255, 0.9), 0 10px 25px -8px rgba(35, 60, 85, 0.08)'
-              }}
+              className="relative w-full h-80 sm:h-96 flex items-center justify-center p-6 my-4 bg-transparent overflow-visible select-none"
+              style={{ perspective: '1200px' }}
             >
-              {/* Soft interior highlight */}
-              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent pointer-events-none" />
-
-              {/* Natural Contact Shadow */}
+              {/* Isolated 3D Sofa with Dimensional Hover Projection */}
               <div
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-[280px] h-6 bg-[#162230] rounded-[100%] pointer-events-none -z-10 opacity-35 blur-md"
-              />
+                className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 ease-out"
+                style={{
+                  transform: 'perspective(1200px) rotateX(2deg) rotateY(-3deg) translateZ(10px)',
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                <img
+                  src={signatureSofa.colorVariants[0]?.image || signatureSofa.images[0]}
+                  alt={signatureSofa.name}
+                  referrerPolicy="no-referrer"
+                  className="max-h-[92%] max-w-[92%] object-contain select-none transition-all duration-500 group-hover:scale-105"
+                />
+              </div>
 
-              {/* Isolated 3D Chair */}
-              <img
-                src={auraChair.images[0]}
-                alt={auraChair.name}
-                referrerPolicy="no-referrer"
-                className="max-h-[92%] max-w-[92%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
-              />
-
-              <div className="absolute bottom-4 left-4">
-                <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full bg-white/90 text-[#254663] shadow-xs">
-                  Virgin Bouclé Loop
+              <div className="absolute bottom-2 left-2">
+                <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full bg-white/90 text-[#182030] border border-black/5 shadow-xs">
+                  Sculptural Curve
                 </span>
               </div>
             </div>
@@ -127,13 +125,13 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
             <div className="pt-4 border-t border-black/5 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A8598] block mb-1">
-                  {auraChair.category} • Hand-Finished in Biella
+                  {signatureSofa.category} • Hand-Tailored
                 </span>
                 <h3 className="font-display font-normal text-2xl sm:text-3xl text-[#141A26]">
-                  {auraChair.name}
+                  {signatureSofa.name}
                 </h3>
                 <p className="font-editorial text-sm sm:text-base text-[#556075] mt-1 max-w-md">
-                  {auraChair.subtitle}
+                  {signatureSofa.subtitle}
                 </p>
               </div>
 
@@ -141,13 +139,13 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
                 <div className="text-right">
                   <span className="text-xs text-[#7A8598] block">Price</span>
                   <span className="text-xl font-bold text-[#141A26]">
-                    ${auraChair.price.toLocaleString()}
+                    ${signatureSofa.price.toLocaleString()}
                   </span>
                 </div>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onQuickAdd(auraChair, 0);
+                    onQuickAdd(signatureSofa, 0);
                   }}
                   className="p-3 rounded-full bg-[#182030] text-white hover:bg-[#2F3A4F] active:scale-95 transition-all shadow-tactile"
                   title="Add to bag"
@@ -162,58 +160,55 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
           {/* Right Column: 2 Stacked Asymmetric Pieces (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col gap-8">
             
-            {/* Piece 2: Travertine Table on Soft Sage Stage */}
+            {/* Piece 2: Architectural Chair */}
             <div
-              id={`gallery-pod-${travertineTable.id}`}
-              onClick={() => onOpenProduct(travertineTable)}
-              className="group relative rounded-[32px] bg-white/80 hover:bg-white/95 border border-black/5 hover:border-black/10 p-6 sm:p-7 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
+              id={`gallery-pod-${featuredChair.id}`}
+              onClick={() => onOpenProduct(featuredChair)}
+              className="group relative rounded-[32px] bg-[#FAF8F5]/90 hover:bg-[#FDFCFA] border border-black/5 hover:border-black/10 p-6 sm:p-7 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#E0EBE2] text-[#3B6344] text-[10px] font-bold tracking-wider uppercase">
-                  Soft Sage Stage
+                <span className="px-2.5 py-0.5 rounded-full bg-black/5 text-[#182030] text-[10px] font-bold tracking-wider uppercase">
+                  Sculptural Chair Archetype
                 </span>
                 <span className="text-xs text-[#6A7382] font-mono">
                   No. 02
                 </span>
               </div>
 
-              {/* Sage Stage Pod */}
+              {/* Stage Container */}
               <div
-                className="relative w-full h-56 rounded-2xl bg-[#E0EBE2] flex items-center justify-center p-4 my-2 overflow-hidden"
-                style={{
-                  boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.9), 0 8px 18px -6px rgba(30, 50, 35, 0.06)'
-                }}
+                className="relative w-full h-56 flex items-center justify-center p-4 my-2 bg-transparent overflow-visible select-none"
+                style={{ perspective: '1000px' }}
               >
-                <div
-                  className="absolute bottom-3 left-1/2 -translate-x-1/2 w-3/4 max-w-[220px] h-5 bg-[#142318] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                />
                 <img
-                  src={travertineTable.images[0]}
-                  alt={travertineTable.name}
+                  src={featuredChair.colorVariants[0]?.image || featuredChair.images[0]}
+                  alt={featuredChair.name}
                   referrerPolicy="no-referrer"
-                  className="max-h-[90%] max-w-[90%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
+                  className="max-h-[88%] max-w-[90%] object-contain select-none group-hover:scale-105 transition-all duration-500"
                 />
               </div>
 
               <div className="pt-3 border-t border-black/5 flex items-center justify-between">
                 <div>
                   <h4 className="font-display font-normal text-xl text-[#141A26]">
-                    {travertineTable.name}
+                    {featuredChair.name}
                   </h4>
                   <span className="text-xs text-[#6A7382]">
-                    Roman Travertine • Tivoli
+                    Bent Ash & Butter Wool • Kyoto
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-base font-bold text-[#141A26]">
-                    ${travertineTable.price.toLocaleString()}
+                    ${featuredChair.price.toLocaleString()}
                   </span>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onQuickAdd(travertineTable, 0);
+                      onQuickAdd(featuredChair, 0);
                     }}
-                    className="w-8 h-8 rounded-full flex items-center justify-center bg-[#182030] text-white hover:bg-[#2F3A4F]"
+                    className="w-9 h-9 rounded-full flex items-center justify-center bg-[#182030] text-white hover:bg-[#253046] active:scale-95 shadow-xs transition-all cursor-pointer"
+                    title="Add to bag"
+                    aria-label={`Add ${featuredChair.name} to bag`}
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                   </button>
@@ -221,56 +216,51 @@ export const FeaturedGallery: React.FC<FeaturedGalleryProps> = ({
               </div>
             </div>
 
-            {/* Piece 3: Solstice Armchair on Warm Peach Stage */}
+            {/* Piece 3: Fluted Credenza */}
             <div
-              id={`gallery-pod-${solsticeChair.id}`}
-              onClick={() => onOpenProduct(solsticeChair)}
-              className="group relative rounded-[32px] bg-white/80 hover:bg-white/95 border border-black/5 hover:border-black/10 p-6 sm:p-7 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
+              id={`gallery-pod-${flutedCredenza.id}`}
+              onClick={() => onOpenProduct(flutedCredenza)}
+              className="group relative rounded-[32px] bg-[#FAF8F5]/90 hover:bg-[#FDFCFA] border border-black/5 hover:border-black/10 p-6 sm:p-7 transition-all duration-300 shadow-pastel-sm hover:shadow-pastel-md cursor-pointer flex flex-col justify-between"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#F5E2D8] text-[#91462D] text-[10px] font-bold tracking-wider uppercase">
-                  Warm Peach Stage
+                <span className="px-2.5 py-0.5 rounded-full bg-black/5 text-[#182030] text-[10px] font-bold tracking-wider uppercase">
+                  Tambour Joinery
                 </span>
                 <span className="text-xs text-[#6A7382] font-mono">
                   No. 03
                 </span>
               </div>
 
-              {/* Peach Stage Pod */}
+              {/* Stage Container */}
               <div
-                className="relative w-full h-56 rounded-2xl bg-[#F5E2D8] flex items-center justify-center p-4 my-2 overflow-hidden"
-                style={{
-                  boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.9), 0 8px 18px -6px rgba(60, 30, 20, 0.06)'
-                }}
+                className="relative w-full h-56 flex items-center justify-center p-4 my-2 bg-transparent overflow-visible select-none"
+                style={{ perspective: '1000px' }}
               >
-                <div
-                  className="absolute bottom-3 left-1/2 -translate-x-1/2 w-3/4 max-w-[200px] h-5 bg-[#26150F] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                />
                 <img
-                  src={solsticeChair.images[0]}
-                  alt={solsticeChair.name}
+                  src={flutedCredenza.colorVariants[0]?.image || flutedCredenza.images[0]}
+                  alt={flutedCredenza.name}
                   referrerPolicy="no-referrer"
-                  className="max-h-[90%] max-w-[90%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
+                  className="max-h-[88%] max-w-[90%] object-contain select-none group-hover:scale-105 transition-all duration-500"
                 />
               </div>
 
               <div className="pt-3 border-t border-black/5 flex items-center justify-between">
                 <div>
                   <h4 className="font-display font-normal text-xl text-[#141A26]">
-                    {solsticeChair.name}
+                    {flutedCredenza.name}
                   </h4>
                   <span className="text-xs text-[#6A7382]">
-                    Mint Virgin Bouclé • Contoured
+                    Ribbed Solid Walnut • Sliding Tambour
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-base font-bold text-[#141A26]">
-                    ${solsticeChair.price.toLocaleString()}
+                    ${flutedCredenza.price.toLocaleString()}
                   </span>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onQuickAdd(solsticeChair, 0);
+                      onQuickAdd(flutedCredenza, 0);
                     }}
                     className="w-8 h-8 rounded-full flex items-center justify-center bg-[#182030] text-white hover:bg-[#2F3A4F]"
                   >

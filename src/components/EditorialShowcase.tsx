@@ -46,33 +46,33 @@ export const EditorialShowcase: React.FC<EditorialShowcaseProps> = ({
         {/* Magazine-Style Split Composition */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* Left: Isolated 3D Stage on Sage Pod */}
+          {/* Left: Isolated 3D Stage on Clean Neutral Pod */}
           <div className="lg:col-span-7 flex flex-col items-center justify-center">
             <div
               onClick={() => onOpenDetail(product)}
-              className="group relative w-full aspect-[16/10] rounded-[36px] bg-[#E3EBE4] p-8 sm:p-12 flex items-center justify-center cursor-pointer overflow-hidden transition-all duration-300"
+              className="group relative w-full aspect-[16/10] rounded-[36px] bg-[#FAF8F4] border border-black/5 hover:border-black/10 p-8 sm:p-12 flex items-center justify-center cursor-pointer overflow-visible transition-all duration-300 select-none"
               style={{
-                boxShadow: 'inset 0 2px 4px rgba(255, 255, 255, 0.95), 0 16px 36px -12px rgba(35, 50, 40, 0.08)'
+                perspective: '1200px'
               }}
             >
-              {/* Diffused highlight */}
-              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/35 to-transparent pointer-events-none" />
-
-              {/* Realistic Contact Shadow */}
+              {/* Isolated Credenza with 3D Forward Projection */}
               <div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 w-4/5 max-w-[420px] h-7 bg-[#142318] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-              />
+                className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 ease-out"
+                style={{
+                  transform: 'perspective(1200px) rotateX(1.5deg) rotateY(-2.5deg) translateZ(8px)',
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                <img
+                  src={product.images[0]}
+                  alt={product.name}
+                  referrerPolicy="no-referrer"
+                  className="max-h-[90%] max-w-[95%] object-contain select-none group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
 
-              {/* Isolated Credenza */}
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                referrerPolicy="no-referrer"
-                className="max-h-[90%] max-w-[95%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
-              />
-
-              <div className="absolute bottom-5 left-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 text-[#305739] shadow-xs">
+              <div className="absolute bottom-4 left-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 text-[#182030] border border-black/5 shadow-xs">
                   Ash Wood Tambour & Peach Travertine Top
                 </span>
               </div>

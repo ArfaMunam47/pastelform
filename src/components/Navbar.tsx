@@ -9,6 +9,9 @@ interface NavbarProps {
   onOpenWishlist: () => void;
   onOpenSearch: () => void;
   onScrollToSection: (sectionId: string) => void;
+  selectedCategory?: string;
+  onSelectCategory?: (cat: string) => void;
+  activeHeroColor?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,7 +20,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCart,
   onOpenWishlist,
   onOpenSearch,
-  onScrollToSection
+  onScrollToSection,
+  activeHeroColor = '#111622',
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -34,98 +38,120 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       <header
         id="main-navigation-header"
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled ? 'py-2.5' : 'py-5'
-        }`}
+        className="relative z-40 w-full pt-2 pb-1 sm:pt-2.5 sm:pb-1.5 transition-all duration-300"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="glass-surface px-6 sm:px-8 py-3 rounded-full flex items-center justify-between transition-all duration-300">
-            
-            {/* Left: Brand Identity */}
-            <div className="flex items-center gap-8 lg:gap-12">
+          <div
+            className="px-5 sm:px-7 py-2 sm:py-2.5 rounded-full flex items-center justify-between transition-all duration-300 bg-white/85 backdrop-blur-md border border-black/[0.06] shadow-[0_8px_25px_-8px_rgba(20,24,35,0.05)]"
+          >
+            {/* Left: Brand Identity & Ultra-Clean Architectural Wordmark */}
+            <div className="flex items-center gap-7 lg:gap-10">
               <button
                 id="brand-logo-btn"
                 onClick={() => onScrollToSection('hero-showcase-section')}
-                className="flex items-center gap-2.5 text-left focus:outline-none group"
+                className="flex items-center gap-2.5 text-left focus:outline-none group cursor-pointer"
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#1A202C] group-hover:scale-125 transition-transform duration-300" />
-                <span className="font-display text-lg tracking-[0.08em] text-[#111622] uppercase">
-                  Pastel & Form
+                <div 
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white font-sans text-[11px] font-bold tracking-tight shadow-xs group-hover:scale-105 transition-all duration-700"
+                  style={{ backgroundColor: activeHeroColor }}
+                >
+                  P
+                </div>
+                <span 
+                  className="font-sans font-bold text-xs sm:text-[13px] tracking-[0.22em] uppercase leading-none transition-colors duration-700 group-hover:opacity-80"
+                  style={{ color: activeHeroColor }}
+                >
+                  PASTEL & FORM
                 </span>
               </button>
 
-              {/* Desktop Nav Links: Shop, Collections, New Arrivals */}
-              <nav className="hidden md:flex items-center gap-7">
+              {/* Desktop Nav Links: Pure refined luxury sans typography */}
+              <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+                <button
+                  id="nav-link-hero"
+                  onClick={() => onScrollToSection('hero-showcase-section')}
+                  className="text-[11px] tracking-[0.16em] uppercase font-semibold text-[#4A5468] hover:text-[#111622] transition-colors cursor-pointer"
+                >
+                  Exhibition
+                </button>
+                <button
+                  id="nav-link-lighting"
+                  onClick={() => onScrollToSection('cta-showcase-section')}
+                  className="text-[11px] tracking-[0.16em] uppercase font-semibold text-[#4A5468] hover:text-[#111622] transition-colors cursor-pointer flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#111622]" />
+                  <span>Light Studio</span>
+                </button>
                 <button
                   id="nav-link-shop"
                   onClick={() => onScrollToSection('signature-collection-section')}
-                  className="text-[11px] tracking-[0.14em] uppercase font-medium text-[#505765] hover:text-[#111622] transition-colors"
+                  className="text-[11px] tracking-[0.16em] uppercase font-semibold text-[#4A5468] hover:text-[#111622] transition-colors cursor-pointer"
                 >
-                  Shop
+                  Catalog
                 </button>
                 <button
-                  id="nav-link-collections"
+                  id="nav-link-curated"
                   onClick={() => onScrollToSection('curated-collections-section')}
-                  className="text-[11px] tracking-[0.14em] uppercase font-medium text-[#505765] hover:text-[#111622] transition-colors"
+                  className="text-[11px] tracking-[0.16em] uppercase font-semibold text-[#4A5468] hover:text-[#111622] transition-colors cursor-pointer"
                 >
-                  Collections
-                </button>
-                <button
-                  id="nav-link-new-arrivals"
-                  onClick={() => onScrollToSection('new-arrivals-section')}
-                  className="text-[11px] tracking-[0.14em] uppercase font-medium text-[#505765] hover:text-[#111622] transition-colors"
-                >
-                  New Arrivals
-                </button>
-                <button
-                  id="nav-link-lighting-studio"
-                  onClick={() => onScrollToSection('cta-showcase-section')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E53945]/10 text-[#E53945] text-[11px] tracking-[0.1em] uppercase font-bold hover:bg-[#E53945]/20 transition-colors"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E53945] animate-pulse" />
-                  3D Studio
+                  Curated
                 </button>
               </nav>
             </div>
 
-            {/* Right: Search, Wishlist, Bag */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            {/* Right: Search, Minimalist Wishlist (no red number badge!), Luxury Bag Pill */}
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 id="navbar-search-btn"
                 onClick={onOpenSearch}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[#4A5260] hover:text-[#111622] hover:bg-white/70 transition-all active:scale-95"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-[#4A5468] hover:text-[#111622] hover:bg-black/5 transition-all active:scale-95 cursor-pointer"
                 aria-label="Search"
+                title="Search furniture"
               >
-                <Search className="w-4 h-4 stroke-[1.5]" />
+                <Search className="w-4 h-4 stroke-[1.75]" />
               </button>
 
+              {/* Wishlist button: Dynamically matching hero color and logo */}
               <button
                 id="navbar-wishlist-btn"
                 onClick={onOpenWishlist}
-                className="hidden sm:flex relative w-9 h-9 rounded-full items-center justify-center text-[#4A5260] hover:text-[#111622] hover:bg-white/70 transition-all active:scale-95"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-700 active:scale-95 cursor-pointer hover:brightness-95"
+                style={{ 
+                  color: activeHeroColor,
+                  backgroundColor: `${activeHeroColor}18`
+                }}
                 aria-label="Wishlist"
+                title="Saved Pieces"
               >
-                <Heart className="w-4 h-4 stroke-[1.5]" />
-                {wishlistCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#D66847]" />
-                )}
+                <Heart 
+                  className="w-4 h-4 transition-all duration-700" 
+                  style={{ 
+                    stroke: activeHeroColor,
+                    strokeWidth: 2,
+                    fill: wishlistCount > 0 ? activeHeroColor : 'none' 
+                  }} 
+                />
               </button>
 
+              {/* Dynamic Bag Pill matching hero section color */}
               <button
                 id="navbar-cart-btn"
                 onClick={onOpenCart}
-                className="flex items-center gap-2 pl-3.5 pr-4 py-1.5 rounded-full bg-[#1A202C] text-white hover:bg-[#2D3748] transition-all active:scale-95 shadow-tactile"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full text-white transition-all duration-700 active:scale-95 shadow-sm cursor-pointer hover:brightness-110"
+                style={{ backgroundColor: activeHeroColor }}
                 aria-label="Shopping Bag"
               >
-                <ShoppingBag className="w-3.5 h-3.5 stroke-[1.75]" />
-                <span className="text-[11px] font-medium tracking-wider uppercase">Bag</span>
+                <ShoppingBag className="w-3.5 h-3.5 stroke-[2]" />
+                <span className="text-[11px] font-semibold tracking-widest uppercase">
+                  Bag {cartCount > 0 ? `(${cartCount})` : ''}
+                </span>
               </button>
 
               {/* Mobile Menu Button */}
               <button
                 id="navbar-mobile-menu-btn"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-[#4A5260] hover:bg-white/70"
+                className="md:hidden w-8 h-8 rounded-full flex items-center justify-center text-[#4A5468] hover:bg-black/5 cursor-pointer"
                 aria-label="Toggle Menu"
               >
                 {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -139,63 +165,48 @@ export const Navbar: React.FC<NavbarProps> = ({
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden max-w-6xl mx-auto px-4 mt-2"
+              className="md:hidden max-w-6xl mx-auto px-4 mt-2 pointer-events-auto"
             >
-              <div className="glass-surface rounded-2xl p-5 shadow-pastel-lg flex flex-col gap-3.5">
+              <div className="glass-surface rounded-2xl p-4 shadow-xl border border-black/[0.08] bg-white/95 backdrop-blur-2xl flex flex-col gap-2.5">
                 <button
                   onClick={() => {
-                    onScrollToSection('signature-collection-section');
+                    onScrollToSection('hero-showcase-section');
                     setMobileMenuOpen(false);
                   }}
-                  className="text-left text-xs uppercase tracking-[0.14em] font-medium text-[#2D3748] py-1"
+                  className="text-left text-xs uppercase tracking-[0.16em] font-semibold text-[#141A26] py-1.5"
                 >
-                  Shop
-                </button>
-                <button
-                  onClick={() => {
-                    onScrollToSection('curated-collections-section');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-left text-xs uppercase tracking-[0.14em] font-medium text-[#2D3748] py-1"
-                >
-                  Collections
-                </button>
-                <button
-                  onClick={() => {
-                    onScrollToSection('new-arrivals-section');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-left text-xs uppercase tracking-[0.14em] font-medium text-[#2D3748] py-1"
-                >
-                  New Arrivals
+                  Exhibition Showcase
                 </button>
                 <button
                   onClick={() => {
                     onScrollToSection('cta-showcase-section');
                     setMobileMenuOpen(false);
                   }}
-                  className="text-left text-xs uppercase tracking-[0.14em] font-bold text-[#E53945] py-1 flex items-center gap-2"
+                  className="text-left text-xs uppercase tracking-[0.16em] font-semibold text-[#141A26] py-1.5"
                 >
-                  <span className="w-2 h-2 rounded-full bg-[#E53945]" />
-                  <span>3D Lighting Studio</span>
+                  3D Light Studio
                 </button>
                 <button
                   onClick={() => {
-                    onOpenWishlist();
+                    onScrollToSection('signature-collection-section');
                     setMobileMenuOpen(false);
                   }}
-                  className="text-left text-xs uppercase tracking-[0.14em] font-medium text-[#2D3748] py-1 flex items-center justify-between"
+                  className="text-left text-xs uppercase tracking-[0.16em] font-semibold text-[#141A26] py-1.5"
                 >
-                  <span>Wishlist</span>
-                  {wishlistCount > 0 && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#E5E7EB]">
-                      {wishlistCount}
-                    </span>
-                  )}
+                  Catalog
+                </button>
+                <button
+                  onClick={() => {
+                    onScrollToSection('curated-collections-section');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-left text-xs uppercase tracking-[0.16em] font-semibold text-[#141A26] py-1.5"
+                >
+                  Curated Sets
                 </button>
               </div>
             </motion.div>

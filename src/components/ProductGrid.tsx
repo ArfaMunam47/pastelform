@@ -129,10 +129,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     setActiveSpatial(tab.id);
                     onSelectCategory('All');
                   }}
-                  className={`px-4 py-2 rounded-full text-xs tracking-wider transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-xs tracking-wider transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-[#182030] text-white shadow-tactile font-medium'
-                      : 'bg-white/80 text-[#556075] hover:bg-white hover:text-[#141A26] border border-black/5'
+                      ? 'bg-[#182030] text-white font-medium shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.2),_0_2px_8px_rgba(24,32,48,0.18)]'
+                      : 'bg-white/85 text-[#556075] hover:bg-white hover:text-[#141A26] border border-[#E2E8F0] shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),_inset_0_-1px_1.5px_rgba(0,0,0,0.02),_0_1px_2px_rgba(0,0,0,0.02)]'
                   }`}
                 >
                   {tab.label}
@@ -152,7 +152,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 id="filter-material-select"
                 value={selectedMaterial}
                 onChange={(e) => setSelectedMaterial(e.target.value)}
-                className="text-xs bg-white/90 border border-black/10 rounded-full px-3.5 py-2 text-[#182030] focus:outline-none focus:ring-1 focus:ring-[#182030]"
+                className="text-xs bg-white/90 border border-[#E2E8F0] rounded-full px-3.5 py-2 text-[#182030] focus:outline-none focus:ring-1 focus:ring-[#182030] shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),_inset_0_-1px_1.5px_rgba(0,0,0,0.02),_0_1px_2px_rgba(0,0,0,0.02)] cursor-pointer"
               >
                 {materials.map(m => (
                   <option key={m} value={m}>{m === 'All' ? 'All Materials' : m}</option>
@@ -165,7 +165,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               id="filter-sort-select"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="text-xs bg-white/90 border border-black/10 rounded-full px-3.5 py-2 text-[#182030] focus:outline-none focus:ring-1 focus:ring-[#182030]"
+              className="text-xs bg-white/90 border border-[#E2E8F0] rounded-full px-3.5 py-2 text-[#182030] focus:outline-none focus:ring-1 focus:ring-[#182030] shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),_inset_0_-1px_1.5px_rgba(0,0,0,0.02),_0_1px_2px_rgba(0,0,0,0.02)] cursor-pointer"
             >
               <option value="curated">Curated Order</option>
               <option value="price-asc">Price: Low to High</option>
@@ -177,7 +177,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               <button
                 id="filter-reset-btn"
                 onClick={handleReset}
-                className="flex items-center gap-1 px-3 py-2 rounded-full bg-white/80 text-xs text-[#8A4A32] hover:bg-white transition-all border border-black/5"
+                className="flex items-center gap-1 px-3 py-2 rounded-full bg-white/90 text-xs text-[#8A4A32] hover:bg-white transition-all border border-[#E2E8F0] shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),_0_1px_2px_rgba(0,0,0,0.02)] cursor-pointer"
                 title="Reset filters"
               >
                 <RotateCcw className="w-3 h-3" />

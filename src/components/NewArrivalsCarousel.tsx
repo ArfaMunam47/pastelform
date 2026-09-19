@@ -103,18 +103,12 @@ export const NewArrivalsCarousel: React.FC<NewArrivalsProps> = ({
                 {/* Stage Pod */}
                 <div
                   className={`relative w-full h-64 rounded-2xl ${stageBg} flex items-center justify-center p-6 my-3 overflow-hidden`}
-                  style={{
-                    boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.9), 0 8px 20px -8px rgba(35, 40, 45, 0.06)'
-                  }}
                 >
-                  <div
-                    className="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-[200px] h-5 bg-[#141A24] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                  />
                   <img
                     src={prod.images[0]}
                     alt={prod.name}
                     referrerPolicy="no-referrer"
-                    className="max-h-[92%] max-w-[92%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-[92%] max-w-[92%] object-contain select-none group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
@@ -134,20 +128,25 @@ export const NewArrivalsCarousel: React.FC<NewArrivalsProps> = ({
 
                     <div className="flex items-center gap-2">
                       <button
+                        id={`inspect-btn-${prod.id}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           onOpenDetail(prod);
                         }}
-                        className="px-3 py-1.5 rounded-full glass-pill text-xs text-[#182030] hover:bg-white"
+                        aria-label={`Inspect ${prod.name} details`}
+                        className="px-3.5 py-1.5 rounded-full bg-white/90 border border-black/10 text-xs font-medium text-[#182030] hover:bg-white hover:border-black/20 shadow-xs transition-all active:scale-95 cursor-pointer flex items-center gap-1"
                       >
-                        Inspect
+                        <Eye className="w-3.5 h-3.5 text-[#556075]" />
+                        <span>Inspect</span>
                       </button>
                       <button
+                        id={`quick-add-btn-${prod.id}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           onQuickAdd(prod, 0);
                         }}
-                        className="p-2 rounded-full bg-[#182030] text-white hover:bg-[#2F3A4F]"
+                        aria-label={`Add ${prod.name} to bag`}
+                        className="w-8 h-8 rounded-full flex items-center justify-center bg-[#182030] text-white hover:bg-[#253046] active:scale-95 shadow-xs transition-all cursor-pointer"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
                       </button>

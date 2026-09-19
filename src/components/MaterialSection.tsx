@@ -133,19 +133,14 @@ export const MaterialSection: React.FC<MaterialSectionProps> = ({
                 </div>
 
                 <div
-                  className="relative w-full h-72 rounded-2xl bg-[#F7EAE3] flex items-center justify-center p-6 my-2 overflow-hidden"
-                  style={{
-                    boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 0 8px 20px -8px rgba(45, 30, 20, 0.06)'
-                  }}
+                  className="relative w-full h-72 flex items-center justify-center p-6 my-2 bg-transparent overflow-visible select-none"
+                  style={{ perspective: '1000px' }}
                 >
-                  <div
-                    className="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-[240px] h-5 bg-[#25150E] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                  />
                   <img
                     src={desk.images[0]}
                     alt={desk.name}
                     referrerPolicy="no-referrer"
-                    className="max-h-[90%] max-w-[90%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-[88%] max-w-[90%] object-contain select-none group-hover:scale-105 transition-all duration-500"
                   />
                 </div>
 
@@ -192,19 +187,14 @@ export const MaterialSection: React.FC<MaterialSectionProps> = ({
                 </div>
 
                 <div
-                  className="relative w-full h-72 rounded-2xl bg-[#DFEAE2] flex items-center justify-center p-6 my-2 overflow-hidden"
-                  style={{
-                    boxShadow: 'inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 0 8px 20px -8px rgba(30, 45, 35, 0.06)'
-                  }}
+                  className="relative w-full h-72 flex items-center justify-center p-6 my-2 bg-transparent overflow-visible select-none"
+                  style={{ perspective: '1000px' }}
                 >
-                  <div
-                    className="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-[200px] h-5 bg-[#142318] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                  />
                   <img
                     src={shelf.images[0]}
                     alt={shelf.name}
                     referrerPolicy="no-referrer"
-                    className="max-h-[92%] max-w-[92%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-[90%] max-w-[90%] object-contain select-none group-hover:scale-105 transition-all duration-500"
                   />
                 </div>
 
