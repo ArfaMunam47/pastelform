@@ -120,41 +120,40 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             {/* Left Column: 3D Visualization Stage & Gallery */}
             <div className="lg:col-span-6 flex flex-col gap-4">
               
-              {/* Main Visual Stage (Soft pastel background matching product stageBg or selected color) */}
+              {/* Main Visual Stage (Clean 3D Stage with Pure Depth and Zero White Artifacts) */}
               <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={() => setTilt({ x: 0, y: 0 })}
                 style={{
-                  transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
+                  perspective: '1200px'
                 }}
-                className={`relative w-full aspect-square sm:aspect-[4/3] rounded-[32px] p-6 flex items-center justify-center overflow-hidden ${product.stageBg || 'bg-[#F2EDE4]'} border border-black/5 shadow-pastel-md transition-all duration-700 ease-out`}
+                className="relative w-full aspect-square sm:aspect-[4/3] rounded-[32px] p-6 flex items-center justify-center overflow-visible bg-[#F3EFE7]/50 border border-black/5 transition-all duration-700 ease-out select-none"
               >
-                {/* Ambient Halo behind product */}
+                {/* Main Product Image (Isolated 3D render with interactive 3D perspective tilt) */}
                 <div
-                  className="absolute w-72 h-72 rounded-full blur-3xl opacity-40 pointer-events-none transition-colors duration-700"
-                  style={{ backgroundColor: activeColor.hex }}
-                />
-
-                {/* Main Product Image (Isolated 3D render) */}
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={currentImage}
-                    src={currentImage}
-                    alt={product.name}
-                    referrerPolicy="no-referrer"
-                    initial={{ opacity: 0, scale: 0.92, y: 8 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
-                    className="relative z-10 max-h-[88%] max-w-[92%] object-contain contact-shadow hover:scale-104 transition-transform duration-500 select-none"
-                  />
-                </AnimatePresence>
-
-                {/* Soft Contact Floor Shadow */}
-                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-3/4 max-w-[280px] h-6 bg-[#161D28] blur-md rounded-[100%] pointer-events-none -z-10 opacity-30" />
+                  className="relative z-10 w-full h-full flex items-center justify-center transition-transform duration-300 ease-out"
+                  style={{
+                    transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(1.02)`,
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImage}
+                      src={currentImage}
+                      alt={product.name}
+                      referrerPolicy="no-referrer"
+                      initial={{ opacity: 0, scale: 0.92, y: 8 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35 }}
+                      className="max-h-[88%] max-w-[90%] object-contain select-none"
+                    />
+                  </AnimatePresence>
+                </div>
 
                 {/* Material Tag Pill Top-Left */}
-                <div className="absolute top-5 left-5 z-20 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md shadow-xs border border-black/5 text-xs font-bold text-[#2A313E]">
+                <div className="absolute top-5 left-5 z-20 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-xs border border-black/5 text-xs font-bold text-[#2A313E]">
                   {product.material}
                 </div>
               </div>

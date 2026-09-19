@@ -113,20 +113,23 @@ export const CuratedCollectionsSection: React.FC<CuratedCollectionsProps> = ({
             {/* Right: Stage Pod with Isolated Paloma Table */}
             <div className="lg:w-1/2 w-full flex items-center justify-center">
               <div
-                className="relative w-full h-80 sm:h-96 rounded-3xl bg-[#F6F0DF] flex items-center justify-center p-8 overflow-hidden"
-                style={{
-                  boxShadow: 'inset 0 2px 3px rgba(255, 255, 255, 0.9), 0 12px 28px -10px rgba(50, 45, 30, 0.08)'
-                }}
+                className="relative w-full h-80 sm:h-96 flex items-center justify-center p-8 bg-transparent overflow-visible select-none"
+                style={{ perspective: '1100px' }}
               >
                 <div
-                  className="absolute bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-[280px] h-6 bg-[#282415] rounded-[100%] pointer-events-none -z-10 opacity-30 blur-md"
-                />
-                <img
-                  src={palomaTable.images[0]}
-                  alt={palomaTable.name}
-                  referrerPolicy="no-referrer"
-                  className="max-h-[92%] max-w-[92%] object-contain contact-shadow select-none group-hover:scale-105 transition-transform duration-500"
-                />
+                  className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 ease-out"
+                  style={{
+                    transform: 'perspective(1100px) rotateX(2deg) rotateY(-3deg) translateZ(10px)',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <img
+                    src={palomaTable.images[0]}
+                    alt={palomaTable.name}
+                    referrerPolicy="no-referrer"
+                    className="max-h-[90%] max-w-[90%] object-contain select-none group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
               </div>
             </div>
 

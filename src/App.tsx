@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { HorizontalGallery } from './components/HorizontalGallery';
+import { SpatialProductExperience } from './components/SpatialProductExperience';
 import { FeaturedGallery } from './components/FeaturedGallery';
 import { CategoryExperience } from './components/CategoryExperience';
 import { ProductGrid } from './components/ProductGrid';
 import { NewArrivalsCarousel } from './components/NewArrivalsCarousel';
 import { EditorialShowcase } from './components/EditorialShowcase';
-import { BestSellersSection } from './components/BestSellersSection';
 import { MaterialSection } from './components/MaterialSection';
 import { CuratedCollectionsSection } from './components/CuratedCollectionsSection';
 import { ManifestoSection } from './components/ManifestoSection';
 import { CallToActionSection } from './components/CallToActionSection';
 import { Footer } from './components/Footer';
 import { ProductDetailModal } from './components/ProductDetailModal';
+import { ProductPage } from './components/ProductPage';
 import { CartDrawer } from './components/CartDrawer';
 import { SearchModal } from './components/SearchModal';
 import { WishlistModal } from './components/WishlistModal';
@@ -21,28 +23,22 @@ import { PRODUCTS } from './data/products';
 import { Product, CartItem, ColorVariant, FurnitureCategory } from './types';
 
 export default function App() {
-  // Cart & Wishlist state
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 'cart-init-1',
-      product: PRODUCTS[0], // Solstice Armchair
-      selectedColor: PRODUCTS[0].colorVariants[0],
-      quantity: 1
-    }
-  ]);
-
-  const [wishlistIds, setWishlistIds] = useState<string[]>([PRODUCTS[1].id]);
+  // Cart & Wishlist state (starts empty with 0 items)
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
 
   // Navigation & Filtering state
   const [selectedCategory, setSelectedCategory] = useState<FurnitureCategory | 'All'>('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Modals state
+  // Modals & Navigation state
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [activeDetailProduct, setActiveDetailProduct] = useState<Product | null>(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
+  const [viewingProductPage, setViewingProductPage] = useState<Product | null>(null);
+  const [activeHeroColor, setActiveHeroColor] = useState<string>('#C73650');
 
   // Micro-interaction Toasts
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -159,10 +155,16 @@ export default function App() {
     });
   };
 
-  // Open Product Detail Modal
+  // Open Product Detail Page (Dedicated Page)
   const handleOpenDetail = (product: Product) => {
+    setViewingProductPage(product);
     setActiveDetailProduct(product);
-    setDetailModalOpen(true);
+    setDetailModalOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBackToExhibition = () => {
+    setViewingProductPage(null);
   };
 
   // Total cart items count
@@ -174,8 +176,52 @@ export default function App() {
   // Credenza for large editorial showcase
   const credenzaProduct = PRODUCTS.find(p => p.id === 'prod-credenza-venezia') || PRODUCTS[5];
 
+  // If user clicked a product, show dedicated Product Page with back option
+  if (viewingProductPage) {
+    return (
+      <div className="min-h-screen text-[#141A26] bg-[#FAF8F5]">
+        <ProductPage
+          product={viewingProductPage}
+          onBack={handleBackToExhibition}
+          onAddToCart={handleAddToCart}
+          onToggleWishlist={handleToggleWishlist}
+          isWishlisted={wishlistIds.includes(viewingProductPage.id)}
+          onOpenProduct={handleOpenDetail}
+          onOpenCart={() => setCartDrawerOpen(true)}
+          cartCount={cartCount}
+        />
+
+        {/* Slide-out Shopping Bag Drawer */}
+        <CartDrawer
+          isOpen={cartDrawerOpen}
+          onClose={() => setCartDrawerOpen(false)}
+          items={cartItems}
+          onUpdateQuantity={handleUpdateQuantity}
+          onRemoveItem={handleRemoveCartItem}
+          onClearCart={handleClearCart}
+          onOpenProductDetail={handleOpenDetail}
+        />
+
+        {/* Saved Collection (Wishlist) Drawer */}
+        <WishlistModal
+          isOpen={wishlistModalOpen}
+          onClose={() => setWishlistModalOpen(false)}
+          wishlistProducts={wishlistProducts}
+          onRemoveWishlist={handleToggleWishlist}
+          onQuickAdd={handleQuickAdd}
+          onOpenDetail={handleOpenDetail}
+        />
+
+        {/* Subtle Micro-Interaction Toast Notifications */}
+        <Toast toasts={toasts} onDismiss={removeToast} />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#141A26] transition-colors duration-1000 antialiased selection:bg-[#D9EAE0] selection:text-[#183626]">
+    <div 
+      className="min-h-screen text-[#141A26] transition-all duration-700 antialiased selection:bg-[#182030] selection:text-white bg-[#F7F5F0]"
+    >
       
       {/* 1. Minimal Editorial Navigation Header */}
       <Navbar
@@ -190,22 +236,39 @@ export default function App() {
           scrollToSection('signature-collection-section');
         }}
         onScrollToSection={scrollToSection}
+        activeHeroColor={activeHeroColor}
       />
 
       {/* Main Experience: Rich, Full-Length Digital Exhibition */}
       <main>
-        {/* 2. Hero Product Experience (3D Style Stage) */}
+        {/* 2. Hero Product Experience (Photorealistic 3D Stage with Come-to-Us Animation) */}
         <HeroSection
           heroProduct={PRODUCTS[0]}
           featuredProducts={PRODUCTS}
-          onExploreClick={() => scrollToSection('featured-gallery-section')}
+          onExploreClick={() => scrollToSection('horizontal-gallery-section')}
           onOpenProduct={handleOpenDetail}
+          onQuickAdd={handleQuickAdd}
+          onToggleWishlist={handleToggleWishlist}
+          wishlistIds={wishlistIds}
+          onActiveColorChange={setActiveHeroColor}
+        />
+
+        {/* 3. Interactive Animation 01: Horizontal Gallery */}
+        <HorizontalGallery
+          products={PRODUCTS}
+          onOpenDetail={handleOpenDetail}
+          onQuickAdd={handleQuickAdd}
+        />
+
+        {/* Interactive 3D & Augmented Reality Exhibition Showcase */}
+        <SpatialProductExperience
+          onOpenDetail={handleOpenDetail}
           onQuickAdd={handleQuickAdd}
           onToggleWishlist={handleToggleWishlist}
           wishlistIds={wishlistIds}
         />
 
-        {/* 3. Featured Products Gallery (Asymmetric Layout, 3 Distinct Stage Pods) */}
+        {/* 5. Featured Products Gallery (Asymmetric Layout, 3 Distinct Stage Pods) */}
         <FeaturedGallery
           products={PRODUCTS}
           onOpenDetail={handleOpenDetail}
@@ -250,15 +313,6 @@ export default function App() {
           onQuickAdd={handleQuickAdd}
           onToggleWishlist={handleToggleWishlist}
           isWishlisted={wishlistIds.includes(credenzaProduct.id)}
-        />
-
-        {/* 8. Best Sellers Section */}
-        <BestSellersSection
-          products={PRODUCTS}
-          onOpenDetail={handleOpenDetail}
-          onToggleWishlist={handleToggleWishlist}
-          wishlistIds={wishlistIds}
-          onQuickAdd={handleQuickAdd}
         />
 
         {/* 9. Furniture by Material (Tactile Surfaces: Travertine, Boucle, Ash, Murano Glass) */}
