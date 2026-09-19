@@ -6,7 +6,7 @@
 
 **Sculptural furniture. Soft pastel stages. Fluid 3D motion.**
 
-![React 19](https://img.shields.io/badge/React-19-61DAFB) ![TypeScript 5.8](https://img.shields.io/badge/TypeScript-5.8-3178C6) ![Vite 6](https://img.shields.io/badge/Vite-6-646CFF) ![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8) ![Motion 12](https://img.shields.io/badge/Motion-12-E1241C)
+![React 19](https://img.shields.io/badge/React-19-61DAFB) ![TypeScript 5.8](https://img.shields.io/badge/TypeScript-5.8-3178C6) ![Vite 6](https://img.shields.io/badge/Vite-6-646CFF) ![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8) ![Motion 12](https://img.shields.io/badge/Motion-12-E1241C) ![Front-End Design Only](https://img.shields.io/badge/Front--End-Design_Only-C9A7F3)
 
 </div>
 
@@ -15,6 +15,87 @@
 > A cinematic, gallery grade digital showroom where every piece of furniture is staged like a sculpture, orbiting on its own pastel gradient stage with fluid parallax, tactile shadows and soft 3D depth.
 
 **Pastel & Form** is not a template — it is a complete **premium frontend showcase experience**. Built as a living exhibition, it presents a curated 20 piece furniture collection across 21 categories, all rendered through an immersive 3D product showcase system: isolated transparent renders, floating depths, gradient light stages and motion that feels physical.
+
+---
+
+## 🌐 Live Preview
+
+> **Front-end design showcase — UI/UX only.** Click below to walk through the full exhibition live in your browser. Nothing runs on the server: search, cart, wishlist, 3D motion and all micro-interactions happen entirely in the front-end (React · TypeScript · Tailwind).
+
+<div align="center">
+
+[![🖥 Open Live Preview](https://img.shields.io/badge/🖥-Open_Live_Preview-EF476F?style=for-the-badge&labelColor=1B2430)](https://YOUR-DEPLOYED-URL "Open the live preview — front-end design showcase only")
+
+<br>
+<sub>**🎨 Front-end design only** — no backend, no sign-ups, no real checkout or payments.</sub>
+
+</div>
+
+### 🚀 Try it locally
+
+```bash
+npm install
+npm run dev        # → http://localhost:3002
+```
+
+> ✨ The dev server already binds to `0.0.0.0`, so any device on the same network can open `http://<your-lan-ip>:3002`. To share it with anyone, anywhere, pick one option below.
+
+<details>
+<summary>📡 Share the live preview with everyone — 2 ways</summary>
+
+### ⚡ Option 1 — Instant public link (no deploy needed, ~30 seconds)
+
+Your machine hosts the site; anyone with the link can view it while the command stays running.
+
+```bash
+# Cloudflare — free, no account required (easiest):
+cloudflared tunnel --url http://localhost:3002
+
+# Or ngrok:
+ngrok http 3002
+
+# Or localtunnel:
+npx localtunnel --port 3002
+```
+
+Copy the generated `https://…` link into the **Open Live Preview** button above.
+
+### 🚀 Option 2 — Permanent hosting (deploy once, live forever)
+
+```bash
+npm run build                # static site → dist/
+
+# Vercel (recommended):
+npx vercel --prod
+
+# Netlify:
+npx netlify-cli deploy --prod --dir=dist
+```
+
+Or import this repo at [vercel.com/new](https://vercel.com/new) or [app.netlify.com](https://app.netlify.com) and it builds itself. After either option, paste your public URL into the button above (replace `YOUR-DEPLOYED-URL`).
+
+</details>
+
+<details>
+<summary>🎥 Project video (optional — add your demo recording here later)</summary>
+
+Drop your footage into the reserved `media/` folder, then point the blocks below at it:
+
+```text
+media/pastel-form-demo.mp4     ← your recording (mp4 / webm · H.264 · <10 MB)
+media/video-poster.png         ← a poster frame / thumbnail
+```
+
+<!-- ▍OPTION A — inline player (renders in VS Code preview, Typora, GitLab, Notion…) -->
+<video controls muted loop playsinline poster="media/video-poster.png" width="100%">
+  <source src="media/pastel-form-demo.mp4" type="video/mp4" />
+  Your browser does not support embedded video — use the ▶ link below.
+</video>
+
+<!-- ▍OPTION B — poster button → hosted video (renders everywhere, incl. GitHub.com) -->
+[![▶ Watch the full Pastel & Form experience](media/video-poster.png)](https://youtu.be/YOUR_VIDEO_ID "Watch the full project video")
+
+</details>
 
 ## ✨ Key Features
 
@@ -74,6 +155,7 @@ furniture-website/
 ├── tsconfig.json               # TypeScript configuration
 ├── package.json                # Dependencies & scripts
 ├── .env.example                # GEMINI_API_KEY & APP_URL template
+├── media/                      # 🎥 (optional) demo video + poster frame for the README
 └── src/
     ├── main.tsx                # React entry point
     ├── App.tsx                 # Global state, layout & section orchestration
