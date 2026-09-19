@@ -1,6 +1,7 @@
 {
   "name": "Pastel & Form — 2026 Furniture Studio",
   "description": "A premium 2026 furniture e-commerce showcase featuring sculptural, colorful design pieces on soft pastel gradient stages with fluid 3D interactions.",
+  "status": "completed",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Pastel &amp; Form — 2026 Furniture Studio">
+  <defs>
+    <!-- Pastel & Form multicolor stage gradient (all 8 brand surfaces) -->
+    <linearGradient id="pastelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E6DEF2"/>
+      <stop offset="20%" stop-color="#D8E5F2"/>
+      <stop offset="40%" stop-color="#D7EAE0"/>
+      <stop offset="60%" stop-color="#F2E8CB"/>
+      <stop offset="80%" stop-color="#F3DDD2"/>
+      <stop offset="100%" stop-color="#F0D4DC"/>
+    </linearGradient>
+    <!-- Champagne gold rim -->
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7E9C6"/>
+      <stop offset="45%" stop-color="#E3BC72"/>
+      <stop offset="100%" stop-color="#C69A50"/>
+    </linearGradient>
+    <!-- Soft espresso clay letter -->
+    <linearGradient id="inkGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A2C23"/>
+      <stop offset="100%" stop-color="#14100C"/>
+    </linearGradient>
+    <clipPath id="tileClip">
+      <rect x="6.5" y="6.5" width="51" height="51" rx="14.5"/>
+    </clipPath>
+  </defs>
+
+  <!-- Floating soft espresso shadow -->
+  <rect x="6" y="8" width="56" height="56" rx="17" fill="#2B231D" opacity="0.16"/>
+  <rect x="3" y="5" width="56" height="56" rx="17" fill="#2B231D" opacity="0.08"/>
+
+  <!-- Champagne gold rim -->
+  <rect x="4" y="4" width="56" height="56" rx="17" fill="url(#goldGrad)"/>
+
+  <!-- Pastel stage tile with gloss -->
+  <g clip-path="url(#tileClip)">
+    <rect x="6.5" y="6.5" width="51" height="51" fill="url(#pastelGrad)"/>
+    <rect x="6.5" y="6.5" width="51" height="15" fill="#FFFFFF" opacity="0.30"/>
+    <ellipse cx="46" cy="12" rx="11" ry="4.5" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+  <!-- Inner white seam (inset lighting) -->
+  <rect x="6.5" y="6.5" width="51" height="51" rx="14.5" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.55"/>
+
+  <!-- Bold vector monogram "P." — font independent, guaranteed crisp at any size -->
+  <g transform="translate(-1.9,0)">
+    <!-- Soft cream relief (tactile letterpress cast) -->
+    <path fill-rule="evenodd" fill="#FFF9EE" opacity="0.9" transform="translate(0.9,2.1)"
+      d="M20,19 H32.5 A9,9 0 0 1 32.5,37 H26 V45 H20 Z M26,25 H32.5 A3,3 0 0 1 32.5,31 H26 Z"/>
+    <!-- Espresso obsidian letterform -->
+    <path fill-rule="evenodd" fill="url(#inkGrad)"
+      d="M20,19 H32.5 A9,9 0 0 1 32.5,37 H26 V45 H20 Z M26,25 H32.5 A3,3 0 0 1 32.5,31 H26 Z"/>
+    <!-- Champagne gold full-stop accent -->
+    <circle cx="45.2" cy="42.4" r="2.6" fill="url(#goldGrad)"/>
+  </g>
+</svg>
